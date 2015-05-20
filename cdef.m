@@ -52,7 +52,6 @@ function  cdef( variable, varargin)
     % Write data values
     values = '';
     line = '    ';
-    extra = false;
     for i=1:length(variable)
         if ~p.Results.pack
             if i ~= length(variable)
@@ -71,18 +70,16 @@ function  cdef( variable, varargin)
             valstr = sprintf(fmt, variable(i));
             if ((length(valstr) + length(line)) <= 79)
                 line = [line valstr];
-                extra = true;
             else
                 values = sprintf('%s%s\n', values, line);
                 line = ['    ' valstr];
-                extra = false;
             end
         end
     end
-    
-    if extra
+    if p.Results.pack
         values = sprintf('%s%s\n', values, line);
     end
+
     
     
     % Create the definition string

@@ -31,9 +31,11 @@ function  cdef( variable, varargin)
         variable = single(variable);
         typestr = 'float';
         fmtstr = '%1.10gf';
+        zlfmtstr = '%1.1ff';
     else
         typestr = 'double';
         fmtstr = '%1.19g';
+        zlfmtstr = '%1.1f';
     end
     
     
@@ -55,16 +57,32 @@ function  cdef( variable, varargin)
     for i=1:length(variable)
         if ~p.Results.pack
             if i ~= length(variable)
-                fmt = sprintf('    %s,\n', fmtstr);
+                if int64(variable(i)) == variable(i)
+                    fmt = sprintf('    %s,\n', zlfmtstr);
+                else
+                    fmt = sprintf('    %s,\n', fmtstr);
+                end
             else
-                fmt = sprintf('    %s\n', fmtstr);
+                if int64(variable(i)) == variable(i)
+                    fmt = sprintf('    %s\n', zlfmtstr);
+                else
+                    fmt = sprintf('    %s\n', fmtstr);
+                end
             end
             values = [values sprintf(fmt, variable(i))];
         else
             if i ~= length(variable)
-                fmt = sprintf('%s, ', fmtstr);
+                if int64(variable(i)) == variable(i)
+                    fmt = sprintf('%s, ', zlfmtstr);
+                else
+                    fmt = sprintf('%s, ', fmtstr);
+                end
             else
-                fmt = sprintf('%s', fmtstr);
+                if int64(variable(i)) == variable(i)
+                    fmt = sprintf('%s', zlfmtstr);
+                else
+                    fmt = sprintf('%s', fmtstr);
+                end
             end
             
             valstr = sprintf(fmt, variable(i));

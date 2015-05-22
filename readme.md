@@ -1,6 +1,9 @@
 #Cdef
 
-Generate c-style constant definitions from a matlab variable.
+Generate C/C++ constant definitions from Matlab variables.
+
+## Installation
+Just copy cdef.m to a folder on your Matlab path.
 
 ## Printing to console
 By default, cdef will print the definition to the matlab console.
@@ -59,7 +62,7 @@ Example:
 ```matlab
 cdef(TestVector, 'precision', 'double', 'exportlength', true, 'filename', 'test.h')
 ```
-Generates
+Generates the following file:
 
 ```c
 /* test.h
